@@ -1,6 +1,7 @@
 import React from 'react'
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { app } from "../firebaseConfig.js";
+import { app, database } from "../firebaseConfig";
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
 import './Login.css'
 export default function Login() {
     const auth = getAuth();
@@ -47,6 +48,7 @@ export default function Login() {
                 // ...
             });
     }
+
     return (
         <>
             <h3 className='login-head'>Codemark</h3>
@@ -56,15 +58,15 @@ export default function Login() {
                         <h4>Login</h4>
                         <div>
                             <label htmlFor='email'>Email:</label>
-                            <input type="email" id='login-emailid' class="input-field" placeholder='Email' name="email" />
+                            <input type="email" id='login-emailid' className="input-field" placeholder='Email' name="email" />
                         </div>
                         <div>
                             <label htmlFor='password' >Password:</label>
-                            <input type="password" id='login-passwordid' class="input-field" placeholder='Password' name="password" />
+                            <input type="password" id='login-passwordid' className="input-field" placeholder='Password' name="password" />
                         </div>
                         <div>
                             <label htmlFor='cpassword'>Confirm Password:</label>
-                            <input type="password" class="input-field" placeholder='Confirm Password' name="cpassword" />
+                            <input type="password" className="input-field" placeholder='Confirm Password' name="cpassword" />
                         </div>
                         <button className="login-button" onClick={loginfn}>Login</button>
                         <p className='login-option'>OR</p>
