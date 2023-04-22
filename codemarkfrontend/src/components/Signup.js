@@ -8,32 +8,32 @@ export default function Signup() {
     }
     function Email() {
         return (
-            <label for="email">Email<input id="signup-email" type="email" placeholder="Email" name="email"/></label>
+            <label htmlFor="email">Email<input id="signup-email" type="email" placeholder="Email" name="email"/></label>
         );
     }
     function Name() {
         return (
-            <label for="name">Name<input id="signup-name" type="text" placeholder="Name" name="name"/></label>
+            <label htmlFor="name">Name<input id="signup-name" type="text" placeholder="Name" name="name"/></label>
         );
     }
     function College_name() {
         return (
-            <label for="college-name">College Name<input id="signup-college-name" type="text" placeholder="College Name" name="college-name"/></label>
+            <label htmlFor="college-name">College Name<input id="signup-college-name" type="text" placeholder="College Name" name="college-name"/></label>
         );
     }
     function Enrollment_number() {
         return (
-            <label for="enrollment-number">Enrollment number<input id="signup-enrollment-number" type="text" placeholder="Enrollment Number" name="enrollment-number"/></label>
+            <label htmlFor="enrollment-number">Enrollment number<input id="signup-enrollment-number" type="text" placeholder="Enrollment Number" name="enrollment-number"/></label>
         );
     }
     function Joining_year() {
         return (
-            <label for="joining-year">Joining Year<input id="signup-joining-year" type="number" placeholder="Joining Year" name="joining=year" min="2010" max="2030"/></label>
+            <label htmlFor="joining-year">Joining Year<input id="signup-joining-year" type="number" placeholder="Joining Year" name="joining=year" min="2010" max="2030"/></label>
         );
     }
     function Semester() {
         return (
-            <label for="semester">Semester
+            <label htmlFor="semester">Semester
             <select id="signup-semester">
                 <option>1</option>
                 <option>2</option>
@@ -49,7 +49,7 @@ export default function Signup() {
     }
     function Password() {
         return (
-            <label for="signup-password">Password<input id="signup-password" type="password" placeholder="Password" name="signup-password"/></label>
+            <label htmlFor="signup-password">Password<input id="signup-password" type="password" placeholder="Password" name="signup-password"/></label>
         );
     }
     function RePassword() {
@@ -57,13 +57,9 @@ export default function Signup() {
             <label for="signup-cpassword">Confirm Password<input id="signup-cpassword" type="password" placeholder="Re-enter Password" name="signup-cpassword"/></label>
         );
     }
-  return (
-    <>
-    <h2 className="signup-company">CodeMark</h2>
-    <div class="signup-main">
-        <div className="signup-side signup-side1">
-            <Head />
-            <form className="signup">
+    function Student() {
+        return (
+            <div className='signup'>
                 <Email />
                 <Name />
                 <College_name />
@@ -72,6 +68,66 @@ export default function Signup() {
                 <Semester />
                 <Password />
                 <RePassword />
+            </div>
+        );
+    }
+    function Teacher() {
+        return (
+            <div className='signup'>
+                <Email />
+                <Name />
+                <College_name />
+                <Password />
+                <RePassword />
+            </div>
+        );
+    }
+    const [formData, setFormData] = React.useState({
+        studentteacher:"Student"
+    })
+    console.log(formData.studentteacher)
+    
+    function handleChange(event) {
+        const {name, value, type, checked} = event.target
+        setFormData(
+            prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: type === "checkbox" ? checked : value
+            }
+        })
+    }
+  return (
+    <>
+    <h2 className="signup-company">CodeMark</h2>
+    <div className="signup-main">
+        <div className="signup-side signup-side1">
+            <Head />
+            <form className="signup">
+            <div className='signup-radiodiv'><input 
+                    type="radio"
+                    id="student"
+                    className="signup-radio"
+                    name="studentteacher"
+                    value="Student"
+                    checked={formData.studentteacher === "Student"}
+                    onChange={handleChange}
+                />
+                <label htmlFor="student" className="signup-radio-label">Student</label>
+                              
+                <input 
+                    type="radio"
+                    id="teacher"
+                    className="signup-radio"
+                    name="studentteacher"
+                    value="Teacher"
+                    checked={formData.studentteacher === "Teacher"}
+                    onChange={handleChange}
+                />
+                
+                <label htmlFor="teacher" className="signup-radio-label">Teacher</label>
+                </div>
+                {formData.studentteacher=="Student"?<Student/>:<Teacher/>}
                 <button className="signup-button">Create Account</button>
             </form>
         </div>
