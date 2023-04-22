@@ -11,48 +11,48 @@ export default function Signup() {
     }
     function Email() {
         return (
-            <label for="email">Email<input id="signup-email" type="email" placeholder="Email" name="email" /></label>
+            <label htmlFor="email">Email<input id="signup-email" type="email" placeholder="Email" name="email"/></label>
         );
     }
     function Name() {
         return (
-            <label for="name">Name<input id="signup-name" type="text" placeholder="Name" name="name" /></label>
+            <label htmlFor="name">Name<input id="signup-name" type="text" placeholder="Name" name="name"/></label>
         );
     }
     function College_name() {
         return (
-            <label for="college-name">College Name<input id="signup-college-name" type="text" placeholder="College Name" name="college-name" /></label>
+            <label htmlFor="college-name">College Name<input id="signup-college-name" type="text" placeholder="College Name" name="college-name"/></label>
         );
     }
     function Enrollment_number() {
         return (
-            <label for="enrollment-number">Enrollment number<input id="signup-enrollment-number" type="text" placeholder="Enrollment Number" name="enrollment-number" /></label>
+            <label htmlFor="enrollment-number">Enrollment number<input id="signup-enrollment-number" type="text" placeholder="Enrollment Number" name="enrollment-number"/></label>
         );
     }
     function Joining_year() {
         return (
-            <label for="joining-year">Joining Year<input id="signup-joining-year" type="number" placeholder="Joining Year" name="joining=year" min="2010" max="2030" /></label>
+            <label htmlFor="joining-year">Joining Year<input id="signup-joining-year" type="number" placeholder="Joining Year" name="joining=year" min="2010" max="2030"/></label>
         );
     }
     function Semester() {
         return (
-            <label for="semester">Semester
-                <select id="signup-semester">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                </select>
+            <label htmlFor="semester">Semester
+            <select id="signup-semester">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+            </select>
             </label>
         );
     }
     function Password() {
         return (
-            <label for="signup-password">Password<input id="signup-password" type="password" placeholder="Password" name="signup-password" /></label>
+            <label htmlFor="signup-password">Password<input id="signup-password" type="password" placeholder="Password" name="signup-password"/></label>
         );
     }
     function RePassword() {
