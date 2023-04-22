@@ -75,28 +75,112 @@ export default function Signup() {
                 console.log(error.message);
             });
     }
-    return (
-        <>
-            <h2 className="signup-company">CodeMark</h2>
-            <div className="signup-main">
-                <div className="signup-side signup-side1">
-                    <Head />
-                    <form className="signup">
-                        <Email />
-                        <Name />
-                        <College_name />
-                        <Enrollment_number />
-                        <Joining_year />
-                        <Semester />
-                        <Password />
-                        <RePassword />
-                        <button className="signup-button" onClick={SignUpfn}>Create Account</button>
-                    </form>
-                </div>
-                <div className="signup-side signup-side2">
-                    <img className="signup-img" src="https://img.freepik.com/free-vector/academic-excellence-illustration_24877-52355.jpg?w=2000" />
-                </div>
+
+    function Student() {
+        return (
+            <div className='signup'>
+                <Email />
+                <Name />
+                <College_name />
+                <Enrollment_number />
+                <Joining_year />
+                <Semester />
+                <Password />
+                <RePassword />
             </div>
-        </>
-    )
+        );
+    }
+    function Teacher() {
+        return (
+            <div className='signup'>
+                <Email />
+                <Name />
+                <College_name />
+                <Password />
+                <RePassword />
+            </div>
+        );
+    }
+    const [formData, setFormData] = React.useState({
+        studentteacher:"Student"
+    })
+    console.log(formData.studentteacher)
+    
+    function handleChange(event) {
+        const {name, value, type, checked} = event.target
+        setFormData(
+            prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: type === "checkbox" ? checked : value
+            }
+        })
+    }
+  return (
+    <>
+    <h2 className="signup-company">CodeMark</h2>
+    <div className="signup-main">
+        <div className="signup-side signup-side1">
+            <Head />
+            <form className="signup">
+            <div className='signup-radiodiv'><input 
+                    type="radio"
+                    id="student"
+                    className="signup-radio"
+                    name="studentteacher"
+                    value="Student"
+                    checked={formData.studentteacher === "Student"}
+                    onChange={handleChange}
+                />
+                <label htmlFor="student" className="signup-radio-label">Student</label>
+                              
+                <input 
+                    type="radio"
+                    id="teacher"
+                    className="signup-radio"
+                    name="studentteacher"
+                    value="Teacher"
+                    checked={formData.studentteacher === "Teacher"}
+                    onChange={handleChange}
+                />
+                
+                <label htmlFor="teacher" className="signup-radio-label">Teacher</label>
+                </div>
+                {formData.studentteacher=="Student"?<Student/>:<Teacher/>}
+                <button className="signup-button" onClick={SignUpfn}>Create Account</button>
+            </form>
+        </div>
+        <div className="signup-side signup-side2">
+            <img className="signup-img" src="https://img.freepik.com/free-vector/academic-excellence-illustration_24877-52355.jpg?w=2000"/>
+        </div>
+    </div>
+    </>
+  )
 }
+    
+    
+//     return (
+//         <>
+//             <h2 className="signup-company">CodeMark</h2>
+//             <div className="signup-main">
+//                 <div className="signup-side signup-side1">
+//                     <Head />
+//                     <form className="signup">
+//                         <Email />
+//                         <Name />
+//                         <College_name />
+//                         <Enrollment_number />
+//                         <Joining_year />
+//                         <Semester />
+//                         <Password />
+//                         <RePassword />
+//                         <button className="signup-button" onClick={SignUpfn}>Create Account</button>
+//                     </form>
+//                 </div>
+//                 <div className="signup-side signup-side2">
+//                     <img className="signup-img" src="https://img.freepik.com/free-vector/academic-excellence-illustration_24877-52355.jpg?w=2000" />
+//                 </div>
+//             </div>
+//         </>
+//     )
+// }
