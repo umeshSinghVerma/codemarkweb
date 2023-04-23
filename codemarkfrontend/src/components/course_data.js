@@ -28,18 +28,19 @@ export default [
                 due:"Friday",
                 name:"ugk 2",
                 complete:true
-            }
-        ],
-        material:
-        [
+            },
             {
-                key:1,
-                content:"Dear Students, Class material is uploaded here.",
-                chapter:"Developer Roadmap"
+                key:5,
+                due:"Friday",
+                name:"ugk 2",
+                complete:false
+            },
+            {
+                key:6,
+                due:"Friday",
+                name:"ugk hihofrw2",
+                complete:false
             }
-        ],
-        classmates:[
-            "Yash Agarwal","Mudit Yadav"
         ]
     },
     {
@@ -48,22 +49,6 @@ export default [
         branch:"CS , IT",
         faculty:"Dr. Rahul Verma",
         assignments:[{complete:true}],
-        material:[
-            {
-                key:1,
-                content:"Dear Students, Class material is uploaded here.",
-                chapter:"Stack Operations"
-            },
-            {
-                key:2,
-                content:"Dear Students, Syllabus is uploaded here.",
-                chapter:"Syllabus"
-            }
-        ]
-        ,
-        classmates:[
-            "Yash Agarwal","Mudit Yadav","Sarthak"
-        ]
     },
     {
         id:3,
@@ -77,34 +62,13 @@ export default [
                 name:"Lab 1",
                 complete:false
             }]
-        ,
-        material:
-            [{
-                key:1,
-                content:"Dear Students, Class material is uploaded here.",
-                chapter:"Java Features"
-            }]
-        ,
-        classmates:[
-            "Yash Agarwal","Mudit Yadav"
-        ]
     },
     {
         id:4,
         title:"Professional Communication",
         branch:"CS , IT",
         faculty:"Dr. Neelu",
-        assignments:[{complete:true}],
-        material:
-            [{
-                key:1,
-                content:"Dear Students, Syllabus is uploaded here.",
-                chapter:"Syllabus"
-            }]
-        ,
-        classmates:[
-            "Yash Agarwal","Mudit Yadav"
-        ]
+        assignments:[{complete:true}]
     },
     {
         id:5,
@@ -112,13 +76,6 @@ export default [
         branch:"CS , IT",
         faculty:"Manish Joshi",
         assignments:[{complete:true}],
-        material:[{
-            key:1,
-            content:"Dear Students, Syllabus is uploaded here.",
-            chapter:"Syllabus"
-        }],
-        classmates:[
-            "Yash Agarwal","Mudit Yadav","Umesh Singh Verma"
-        ]
+
     }
 ]

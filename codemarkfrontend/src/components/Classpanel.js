@@ -98,9 +98,9 @@ const Classpanel = () => {
     const db = getDatabase();
 
     function createAssignment() {
-        // let question = document.getElementById("questionId").value;
-        // let input = document.getElementById("sampleInputId").value;
-        // let output = document.getElementById("sampleOutputId").value;
+        let question = document.getElementById("questionId").value;
+        let duedate = document.getElementById("duedateid").value;
+        let assigmentname = document.getElementById("assignmentName").value;
         let visible_test_cases=[];
         let hidden_test_cases=[];
         let visibleinputs = document.getElementById("visibleTestCase").value;
@@ -124,26 +124,25 @@ const Classpanel = () => {
             }
             hidden_test_cases.push(user1);
         }
-        appendUserData(visible_test_cases,hidden_test_cases);
-    }
-    function appendUserData(visible_test_cases,hidden_test_cases) {
+
         const postListRef = ref(db, 'assignments/');
         const newPostRef = push(postListRef);
         let assigmentid = newPostRef._path.pieces_[newPostRef._path.pieces_.length - 1];
         set(newPostRef, {
-            assignment_id: "assigmentid",
+            assignment_id: assigmentid,
             subject_id: "WDAD",
             professor_id: auth.currentUser.uid,
             batch_id: "string",
-            assignment_name: "string",
-            description: "input1",
+            assignment_name: assigmentname,
+            description: question,
             test_cases:
             {
                 visible_test_cases,
                 hidden_test_cases
             },
-            due_date: "string"
+            due_date: duedate
         });
+
     }
     function visibletestcasefn() {
         let visible = document.getElementById("visibleTestCase").value;
@@ -217,13 +216,9 @@ const Classpanel = () => {
                         <div className="teacher_class-notes">
                             <h4>CREATE ASSIGNMENT</h4>
                             <div className="teacher_class-assigndrop create-button" onClick={showassignfield}>Create New</div>
-                            {/* {se &&<>
-                                <div className='Landing-login' >Question<textarea/></div>
-                                <div className="Landing-login">Sample Input<textarea className="small-area"/></div>
-                                <div className="Landing-login">Sample Output<textarea className="small-area"/></div>
-                                <button className="create-button">Create Assignment</button>
-                            </> } */}
                             {se && <>
+                                <div className='Landing-login' >Assignment name<textarea className="small-area" id="assignmentName" /></div>
+                                <div className='Landing-login' >Due Date<input type="date" id="duedateid" /></div>
                                 <div className='Landing-login' >Question<textarea className="small-area" id="questionId" /></div>
 
                                 <div className='Landing-login' ><span>Visible Test Cases</span><input type="number" id="visibleTestCase" onChange={visibletestcasefn} /> <span>Hidden Test Cases</span><input type="number" id="hiddenTestCase" onChange={hiddentestcasefn} /></div>
