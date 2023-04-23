@@ -1,17 +1,25 @@
 import React, {useRef} from 'react'
+import {useLocation,useNavigate} from 'react-router-dom';
+
 import './Landing.css'
+let p={};
 const LandingNavbar=()=>{
     const navRef=useRef();
     const showNavbar=()=>{
         navRef.current.classList.toggle("home_header--responsive--nav");
     };
+    const navigate = useNavigate();
+    const handlelogin = (props) => {
+        navigate('/login',{state:{props}})};
+    const handlesignup = (props) => {
+        navigate('/signup',{state:{props}})};
     return(
         <div className='Landing-navbar'>
             <h3>CodeMark</h3>
-            <div className='Landing-login' ref={navRef}>
-                <p className='Landing-signup'>Apply as instructor</p>
-                <p className='Landing-signup'>Sign up</p>
-                <p className='Landing-login-button'>Login</p>
+            <div className='Landing-login-page' ref={navRef}>
+                <p className='Landing-signup' onClick={handlesignup}>Apply as instructor</p>
+                <p className='Landing-signup' onClick={handlesignup}>Sign up</p>
+                <p className='Landing-login-button' onClick={handlelogin}>Login</p>
                 <button className="Landing-dropdown Landing-dropdown-closeBtn" onClick={showNavbar}>&times;</button>
             </div>
             <button
@@ -26,11 +34,11 @@ const LandingHero=()=>{
     return(
         <div className='Landing-hero'>
             <div className='Landing-hero-side'>
-                <h1>hello hello hello<br /> hello hello</h1>
-                <p>description</p>
+                <h1>CodeMark</h1>
+                <p>CodeMark is a user-friendly code review and submission tool for students and professors. It automates code checking and submission, and includes plagiarism detection, secure IPFS-based storage, and easy code submission. With local testing, evaluating code is quick and simple.</p>
             </div>
             <div className='Landing-hero-side'>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlj5aJL-HgL6dsHvRVFJ5isZVwPOo8Dd8UezRSmwxICG14QvV6wcB27Qxv9t7kUGxcJls&usqp=CAU" className='Landing-hero-image' />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQnis7VaiMBUZGvRCiAV08rovlN-u-14IbLQ&usqp=CAU" className='Landing-hero-image' />
             </div>
         </div>
     )
@@ -39,16 +47,16 @@ const LandingFooter=()=>{
     return(
         <div className='Landing-footer'>
             <div className='Landing-content'>
-                <h2>133+</h2>
-                <p>courses</p>
+                <h2>1500+</h2>
+                <p>Assignments Uploaded</p>
             </div>
             <div className='Landing-content'>
-                <h2>133+</h2>
-                <p>courses</p>
+                <h2>130+</h2>
+                <p>Students</p>
             </div>
             <div className='Landing-content'>
-                <h2>133+</h2>
-                <p>courses</p>
+                <h2>45+</h2>
+                <p>Colleges</p>
             </div>
         </div>
     )

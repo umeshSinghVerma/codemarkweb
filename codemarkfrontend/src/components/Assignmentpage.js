@@ -1,5 +1,6 @@
 import React from 'react'
 import './Assignmentpage.css'
+import { useLocation } from 'react-router-dom';
 const openSidebar=()=>{
     document.getElementById("student_class--sidebar").style.width="250px";
 }
@@ -7,6 +8,8 @@ const closeSidebar=()=>{
     document.getElementById("student_class--sidebar").style.width="0";
 }
 export default function Assignmentpage() {
+    const location=useLocation();
+    console.log(location.state)
     const Navbar =()=>{
         return(
             <nav className="student_class--navbar">
@@ -48,17 +51,18 @@ export default function Assignmentpage() {
     }
     function myFunction(){
         var copyText = document.getElementById("assign-code");
-        navigator.clipboard.writeText(copyText.innerText);
+        navigator.clipboard.writeText("codemark get "+copyText.innerText);
     }
     function AssignCode() {
         return (
             <div className="assign-submit">
                 <span>Assignment Code -</span>
-                <div className="assignment-code" id="assign-code" onClick={myFunction}>ABFD1289</div>
+                <div className="assignment-code" id="assign-code" onClick={myFunction}>ABFD1289<div className='hover-class'>Click to Copy</div></div>
                 <button className="assign-submit-button">Submit</button>
             </div>
         )
     }
+   
   return (
     <>
             <Navbar />

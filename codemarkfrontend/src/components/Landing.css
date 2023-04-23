@@ -16,7 +16,7 @@
     margin-left: 30px;
     margin-right: auto;
 }
-.Landing-login{
+.Landing-login-page{
     color: white;
     flex-basis:40%;
     display: flex;
@@ -100,7 +100,7 @@
 		visibility: visible;
 		opacity: 1;
 	}
-	.Landing-login{
+	.Landing-login-page{
 		box-sizing: border-box;
 		position: fixed;
 		top: -100vh;
@@ -135,7 +135,7 @@
         display: flex;
         flex-direction: column;
     }
-	.Landing-login{
+	.Landing-login-page{
 		box-sizing: border-box;
 		position: fixed;
 		top: -100vh;
@@ -173,7 +173,7 @@
     .Landing-hero-side img{
         width: 70%;
     }
-	.Landing-login{
+	.Landing-login-page{
 		box-sizing: border-box;
 		position: fixed;
 		top: -100vh;

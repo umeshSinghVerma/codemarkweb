@@ -112,7 +112,7 @@
     font-size: 15
     px;
 }
-.student_class-assignments{
+.student_class-assignments-main{
     overflow-y: scroll;
     box-sizing: border-box;
     width: 66vw;
@@ -141,6 +141,7 @@
     margin:5px auto 0 auto;
 }
 .student_class-assignment{
+    cursor: pointer;
     box-sizing: border-box;
     padding: 5px;
     width: 100%;
@@ -150,7 +151,7 @@
     align-items: center;
     gap: 10px;
 }
-.student_class-assignments h4{
+.student_class-assignments-main h4{
     margin:5px auto 0 auto;
 }
 .student_class-assignment img,.student_class-note img{
@@ -164,11 +165,11 @@
     cursor: pointer;
 }
 @media only screen and (max-width:992px){
-    .student_class-assignments{
+    .student_class-assignments-main{
         width: 70vw;
     }
 }
-.Landing-login{
+.Landing-login-assign{
     display: block;
     box-sizing: border-box;
     color: darkgreen;

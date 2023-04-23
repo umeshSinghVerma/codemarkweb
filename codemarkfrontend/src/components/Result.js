@@ -1,42 +1,16 @@
 import React, {useRef, useState}from "react";
-import data from './course_data';
+// import data from './course_data';
 import './Result.css'
-
-const openSidebar=()=>{
-    document.getElementById("result-page--sidebar").style.width="250px";
-}
-const closeSidebar=()=>{
-    document.getElementById("result-page--sidebar").style.width="0";
-}
 
 const Navbar =()=>{
     return(
         <nav className="result-page--navbar">
-            <div className="result-page--menu" onClick={openSidebar}>&#9776;</div>
             <div className="result-page--title">IIITL Classroom</div>
             <div className="result-page--profile">Y</div>
         </nav>
     )
 }
-const Side=(props)=>{
-    return(
-        <li>{props.title}</li>
-    )
-}
-const Sidebar=()=>{
-    return(
-        <div id="result-page--sidebar">
-            <span className="result-page--closesidebar" onClick={closeSidebar}>&times;</span>
-                <ul className="result-page--classlist">
-                    {a}
-                </ul>
-        </div>
-    )
-}
 
-const a=data.map(item=>{
-    return (<Side key={item.id} {...item} />)
-})
 const Result=()=>{
     const Assignment=(props)=>{
         return(
@@ -97,7 +71,6 @@ const Result=()=>{
         <>
         <Navbar />
         <div className="result-page-page">
-            <Sidebar />
             <div className="result-page">
                 <div className="result-page--hero">
                 OOPS (2K23)<p className="result-page-branch">Branch - CS,IT</p>
@@ -105,24 +78,34 @@ const Result=()=>{
                 <h2>Result</h2>
                 <div className="result-page-sections" id="result-page-sections">
                     <div className="Landing-login">
-                        <h4>Assignment code</h4>
-                        <p style={{fontSize:12}}>ACVHSUS*%Sg</p>
+                        <h4>Factorial</h4>
+                        <p style={{fontSize:12}}>CS101_B1_1</p>
+                        <p style={{fontSize:12}}>Score: 3/10</p>
+                        <p style={{fontSize:12}}>Plag Report : 38%</p>
                     </div>               
                     <div className="Landing-login">
-                        <h4>Assignment code</h4>
-                        <p style={{fontSize:12}}>ACVHSUS*%Sg</p>
+                        <h4>Fibonacci</h4>
+                        <p style={{fontSize:12}}>CS101_B1_2</p>
+                        <p style={{fontSize:12}}>Score: 3/10</p>
+                        <p style={{fontSize:12}}>Plag Report : 78%</p>
                     </div>               
                     <div className="Landing-login">
-                        <h4>Assignment code</h4>
-                        <p style={{fontSize:12}}>ACVHSUS*%Sg</p>
+                        <h4>Matrix Sum</h4>
+                        <p style={{fontSize:12}}>CS101_B1_3</p>
+                        <p style={{fontSize:12}}>Score: 8/10</p>
+                        <p style={{fontSize:12}}>Plag Report : 28%</p>
                     </div>               
                     <div className="Landing-login">
-                        <h4>Assignment code</h4>
-                        <p style={{fontSize:12}}>ACVHSUS*%Sg</p>
+                        <h4>Armstrong Number</h4>
+                        <p style={{fontSize:12}}>CS101_B1_4</p>
+                        <p style={{fontSize:12}}>Score: 4/5</p>
+                        <p style={{fontSize:12}}>Plag Report : 60%</p>
                     </div>               
                     <div className="Landing-login">
-                        <h4>Assignment code</h4>
-                        <p style={{fontSize:12}}>ACVHSUS*%Sg</p>
+                        <h4>Binary Search</h4>
+                        <p style={{fontSize:12}}>CS101_B1_5</p>
+                        <p style={{fontSize:12}}>Score: 4/10</p>
+                        <p style={{fontSize:12}}>Plag Report : 33%</p>
                     </div>               
                 </div>
             </div>

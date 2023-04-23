@@ -1,17 +1,21 @@
 import React from 'react'
+import {useLocation,useNavigate} from 'react-router-dom';
+import data from './course_data'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app, database } from "../firebaseConfig";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
 import './Signup.css'
 export default function Signup() {
-
+    const navigate = useNavigate();
     const auth = getAuth();
     const database = getDatabase();
     const db = getDatabase();
 
 
-    function writeStudentData(input1, input2, input3, input4, input5, input6) {
-        if (input1 == "" || input2 == "" || input3 == "" || input4 == "" || input5 == "" || input6 == "") {
+
+
+    function writeStudentData(input1, input2, input3, input4, input5, input6,input7) {
+        if (input1 == "" || input2 == "" || input3 == "" || input4 == "" || input5 == "" || input6 == ""||input7=="") {
             console.log("please provide some input");
         } else {
             set(ref(db, 'student/' + auth.currentUser.uid), {
@@ -20,13 +24,15 @@ export default function Signup() {
                 college_name: input3,
                 enrollment_number: input4,
                 joining_year: input5,
-                semester: input6
+                class:input6,
+                batchid:`BT${input6}${input5}T${input7}`,
+                semester: input7
             });
-            console.log(auth.currentUser.email, auth.currentUser.uid)
+            // console.log(auth.currentUser.email, auth.currentUser.uid)
         }
     }
-    function writeStudentDataInUser(input1, input2, input3, input4, input5, input6) {
-        if (input1 == "" || input2 == "" || input3 == "" || input4 == "" || input5 == "" || input6 == "") {
+    function writeStudentDataInUser(input1, input2, input3, input4, input5, input6,input7) {
+        if (input1 == "" || input2 == "" || input3 == "" || input4 == "" || input5 == "" || input6 == ""||input7=="") {
             console.log("please provide some input");
         } else {
             set(ref(db, 'users/' + auth.currentUser.uid), {
@@ -35,35 +41,43 @@ export default function Signup() {
                 college_name: input3,
                 enrollment_number: input4,
                 joining_year: input5,
-                semester: input6,
+                class:input6,
+                batchid:`BT${input6}${input5}T${input7}`,
+                semester: input7,
                 user_type:"student"
             });
-            console.log(auth.currentUser.email, auth.currentUser.uid)
+            // console.log(auth.currentUser.email, auth.currentUser.uid)
         }
     }
-    function writeTeacherData(input1, input2, input3) {
-        if (input1 == "" || input2 == "" || input3 == "") {
+    function writeTeacherData(input1, input2, input3,input4,input5) {
+        if (input1 == "" || input2 == "" || input3 == "" || input4==""||input5=="") {
             console.log("please provide some input");
         } else {
             set(ref(db, 'teacher/' + auth.currentUser.uid), {
-                email: input1,
-                name: input2,
-                college_name: input3
-            });
-            console.log(auth.currentUser.email, auth.currentUser.uid)
-        }
-    }
-    function writeTeacherDatainUser(input1, input2, input3) {
-        if (input1 == "" || input2 == "" || input3 == "") {
-            console.log("please provide some input");
-        } else {
-            set(ref(db, 'users/' + auth.currentUser.uid), {
+                professor_id:auth.currentUser.uid,
                 email: input1,
                 name: input2,
                 college_name: input3,
+                class:input4,
+                course:input5
+            });
+            // console.log(auth.currentUser.email, auth.currentUser.uid)
+        }
+    }
+    function writeTeacherDatainUser(input1, input2, input3,input4,input5) {
+        if (input1 == "" || input2 == "" || input3 == ""||input4==""||input5=="") {
+            console.log("please provide some input");
+        } else {
+            set(ref(db, 'users/' + auth.currentUser.uid), {
+                professor_id:auth.currentUser.uid,
+                email: input1,
+                name: input2,
+                college_name: input3,
+                class:input4,
+                course:input5,
                 user_type:"teacher"
             });
-            console.log(auth.currentUser.email, auth.currentUser.uid)
+            // console.log(auth.currentUser.email, auth.currentUser.uid)
         }
     }
 
@@ -91,6 +105,16 @@ export default function Signup() {
     function Enrollment_number() {
         return (
             <label htmlFor="enrollment-number">Enrollment number<input id="signup-enrollment-number" type="text" placeholder="Enrollment Number" name="enrollment-number" /></label>
+        );
+    }
+    function Teacher_Class() {
+        return (
+            <label htmlFor="enrollment-number">Class<input id="signup-teacher-class" type="text" placeholder="Class" name="teacher-class" /></label>
+        );
+    }
+    function Teacher_Course() {
+        return (
+            <label htmlFor="teacher-course">Course<input id="signup-teacher-course" type="text" placeholder="Course" name="teacher-course" /></label>
         );
     }
     function Joining_year() {
@@ -124,23 +148,58 @@ export default function Signup() {
             <label htmlFor="signup-cpassword">Confirm Password<input id="signup-cpassword" type="password" placeholder="Re-enter Password" name="signup-cpassword" /></label>
         );
     }
+
+    let alluserdata = [];
+    let alluserassignmentdata = [];
+    let allteacherdata = [];
+    function getuserdata() {
+        const starCountRef = ref(db, 'users/');
+        console.log(starCountRef);
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            alluserdata = data;
+        });
+    }
+    function getassignmentdata() {
+        const starCountRef = ref(db, 'assignments/');
+        console.log(starCountRef);
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            alluserassignmentdata = data;
+            console.log("assignment", alluserassignmentdata);
+        });
+    }
+    function getTeacherdata() {
+        const starCountRef = ref(db, 'teacher/');
+        console.log(starCountRef);
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            allteacherdata = data;
+            console.log("teacherdata", allteacherdata);
+        });
+    }
+
     function SignUpfnStudent(e) {
         e.preventDefault();
         if (formData.studentteacher == "Student") {
+            getuserdata();
+            getassignmentdata();
+            getTeacherdata();
             let email = document.getElementById("signup-email").value;
             let name = document.getElementById("signup-name").value;
             let college_name = document.getElementById("signup-college-name").value;
             let enrollment_number = document.getElementById("signup-enrollment-number").value;
             let joining_year = document.getElementById("signup-joining-year").value;
-            console.log(joining_year)
+            let tclass = document.getElementById("signup-teacher-class").value;
             let semester = document.getElementById("signup-semester").value;
             let password = document.getElementById("signup-password").value;
             createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user)
-                writeStudentData(email, name, college_name, enrollment_number, joining_year, semester);
-                writeStudentDataInUser(email, name, college_name, enrollment_number, joining_year, semester);
+                // console.log(user)
+                writeStudentData(email, name, college_name, enrollment_number, joining_year, tclass, semester);
+                writeStudentDataInUser(email, name, college_name, enrollment_number, joining_year,tclass, semester);
+                navigate('/course', { state: {alluserassignmentdata,allteacherdata} })
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -148,16 +207,22 @@ export default function Signup() {
                 console.log(error.message);
             });
         } else {
+            getuserdata();
+            getassignmentdata();
+            getTeacherdata();
             let email = document.getElementById("signup-email").value;
             let name = document.getElementById("signup-name").value;
             let college_name = document.getElementById("signup-college-name").value;
+            let tclass = document.getElementById("signup-teacher-class").value;
+            let tcourse = document.getElementById("signup-teacher-course").value;
             let password = document.getElementById("signup-password").value;
-            createUserWithEmailAndPassword(auth, email, password)
+            createUserWithEmailAndPassword(auth, email, password,tclass,tcourse)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user)
-                writeTeacherData(email, name, college_name);
-                writeTeacherDatainUser(email, name, college_name);
+                // console.log(user)
+                writeTeacherData(email, name, college_name,tclass,tcourse);
+                writeTeacherDatainUser(email, name, college_name,tclass,tcourse);
+                navigate('/teacher',{ state: {alluserassignmentdata,allteacherdata} });
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -175,6 +240,7 @@ export default function Signup() {
                 <College_name />
                 <Enrollment_number />
                 <Joining_year />
+                <Teacher_Class />
                 <Semester />
                 <Password />
                 <RePassword />
@@ -187,6 +253,8 @@ export default function Signup() {
                 <Email />
                 <Name />
                 <College_name />
+                <Teacher_Class />
+                <Teacher_Course />
                 <Password />
                 <RePassword />
             </div>

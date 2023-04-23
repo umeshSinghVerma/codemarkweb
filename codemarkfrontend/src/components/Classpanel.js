@@ -1,52 +1,26 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import data from './course_data';
+// import data from './course_data';
 import './Classpanel.css'
 import { app, database } from "../firebaseConfig";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
-const openSidebar = () => {
-    document.getElementById("teacher_class--sidebar").style.width = "250px";
-}
-const closeSidebar = () => {
-    document.getElementById("teacher_class--sidebar").style.width = "0";
-}
+// console.log(assignmentdata);
 
-const Navbar = () => {
+
+let Navbar = () => {
     return (
         <nav className="teacher_class--navbar">
-            <div className="teacher_class--menu" onClick={openSidebar}>&#9776;</div>
             <div className="teacher_class--title">IIITL Classroom</div>
             <div className="teacher_class--profile">Y</div>
         </nav>
     )
 }
-const Side = (props) => {
-    const navigae = useNavigate();
-    const handlebar = () => {
-        navigae('/class', { state: { props } })
-    };
-    return (
-        <li onClick={handlebar}>{props.title}</li>
-    )
-}
-const Sidebar = () => {
-    return (
-        <div id="teacher_class--sidebar">
-            <span className="teacher_class--closesidebar" onClick={closeSidebar}>&times;</span>
-            <ul className="teacher_class--classlist">
-                {a}
-            </ul>
-        </div>
-    )
-}
 
-const a = data.map(item => {
-    return (<Side key={item.id} {...item} />)
-})
 const Classpanel = () => {
     const location = useLocation();
+    console.log(location.state)
 
 
     const Assignment = (props) => {
@@ -60,31 +34,22 @@ const Classpanel = () => {
             </div>
         )
     }
-    const Assignments = (props) => {
-        let a_name = ' ';
-        let d_date = ' ';
-        let assigns = ''
-        if (props.value.assignments[0].complete) {
-            a_name = "No due Assignments";
-            assigns = [
-                <Assignment key="1" a_name={a_name} d_date={d_date} />
-            ]
-        }
-        else {
-            assigns = props.value.assignments.map(
-                (item) => {
-                    a_name = item.name
-                    d_date = item.due
-                    return (
-                        <Assignment key={item.key} a_name={a_name} d_date={d_date}></Assignment>
-                    )
-                }
-            )
-
-        }
-        return (
+    const Assignments=(value)=>{
+        let a_name=' ';
+        let d_date=' ';
+        let assigns='';
+        console.log(value)
+        assigns=value.value.map(item=>{
+                a_name=item.assignment_name
+                d_date=item.due_date
+                return(
+                    <Assignment key={item.assignment_id} a_name={a_name} d_date={d_date}></Assignment>
+                )
+        })
+        
+        return(
             <>
-                {assigns}
+            {assigns}
             </>
         )
     }
@@ -124,17 +89,34 @@ const Classpanel = () => {
             }
             hidden_test_cases.push(user1);
         }
+        let allteacherdata=[];
+        function getTeacherdata() {
+            const starCountRef = ref(db, 'teacher/');
+            console.log(starCountRef);
+            onValue(starCountRef, (snapshot) => {
+                const data = snapshot.val();
+                allteacherdata = data;
+                console.log("teacherdata", allteacherdata);
+            });
+        }
+        getTeacherdata();
+        let teachersubject = allteacherdata[auth.currentUser.uid];
+        let subject = teachersubject.course;
+
 
         const postListRef = ref(db, 'assignments/');
+        // const teacheradd = ref(db,'teacher/',auth.currentUser.uid,'assignment/');
         const newPostRef = push(postListRef);
+        // const newteacherassignment = push(teacheradd);
         let assigmentid = newPostRef._path.pieces_[newPostRef._path.pieces_.length - 1];
         set(newPostRef, {
             assignment_id: assigmentid,
-            subject_id: "WDAD",
+            subject_id: subject,
             professor_id: auth.currentUser.uid,
             batch_id: "string",
             assignment_name: assigmentname,
             description: question,
+            complete:false,
             test_cases:
             {
                 visible_test_cases,
@@ -202,15 +184,25 @@ const Classpanel = () => {
             box.appendChild(elementout);
         }
     }
+    function getdata() {
+        const starCountRef = ref(db, 'assignments/');
+        console.log(starCountRef);
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            console.log(snapshot.key);
+        });
+        console.log("we have got data successfully");
+    }
+
 
     return (
         <>
             <Navbar />
             <div className="teacher_class-page">
-                <Sidebar />
                 <div className="teacher_class">
                     <div className="teacher_class--hero">
-                        {location.state.props.title}<p className="teacher_class-branch">{location.state.props.branch}</p>
+                        {location.state.arr[0].subject_id}
                     </div>
                     <div className="teacher_class-sections">
                         <div className="teacher_class-notes">
@@ -227,17 +219,19 @@ const Classpanel = () => {
                                 <div id="inputhidden" style={{ width: "95%" }}></div>
 
                                 <button className="create-button" onClick={createAssignment}>Create Assignment</button>
+                                <button className="create-button" onClick={getdata}>get data</button>
                             </>}
                         </div>
                         <div className="teacher_class-assignments">
                             <h4>UPLOADED ASSIGNMENTS</h4>
-                            <Assignments value={location.state.props} />
+                            <Assignments value={location.state.arr} />
                         </div>
                     </div>
 
                 </div>
             </div>
         </>
+
     )
 
 }
