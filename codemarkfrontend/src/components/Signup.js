@@ -20,7 +20,23 @@ export default function Signup() {
                 college_name: input3,
                 enrollment_number: input4,
                 joining_year: input5,
+                semester: input6
+            });
+            console.log(auth.currentUser.email, auth.currentUser.uid)
+        }
+    }
+    function writeStudentDataInUser(input1, input2, input3, input4, input5, input6) {
+        if (input1 == "" || input2 == "" || input3 == "" || input4 == "" || input5 == "" || input6 == "") {
+            console.log("please provide some input");
+        } else {
+            set(ref(db, 'users/' + auth.currentUser.uid), {
+                email: input1,
+                name: input2,
+                college_name: input3,
+                enrollment_number: input4,
+                joining_year: input5,
                 semester: input6,
+                user_type:"student"
             });
             console.log(auth.currentUser.email, auth.currentUser.uid)
         }
@@ -32,7 +48,20 @@ export default function Signup() {
             set(ref(db, 'teacher/' + auth.currentUser.uid), {
                 email: input1,
                 name: input2,
+                college_name: input3
+            });
+            console.log(auth.currentUser.email, auth.currentUser.uid)
+        }
+    }
+    function writeTeacherDatainUser(input1, input2, input3) {
+        if (input1 == "" || input2 == "" || input3 == "") {
+            console.log("please provide some input");
+        } else {
+            set(ref(db, 'users/' + auth.currentUser.uid), {
+                email: input1,
+                name: input2,
                 college_name: input3,
+                user_type:"teacher"
             });
             console.log(auth.currentUser.email, auth.currentUser.uid)
         }
@@ -92,7 +121,7 @@ export default function Signup() {
     }
     function RePassword() {
         return (
-            <label for="signup-cpassword">Confirm Password<input id="signup-cpassword" type="password" placeholder="Re-enter Password" name="signup-cpassword" /></label>
+            <label htmlFor="signup-cpassword">Confirm Password<input id="signup-cpassword" type="password" placeholder="Re-enter Password" name="signup-cpassword" /></label>
         );
     }
     function SignUpfnStudent(e) {
@@ -111,6 +140,7 @@ export default function Signup() {
                 const user = userCredential.user;
                 console.log(user)
                 writeStudentData(email, name, college_name, enrollment_number, joining_year, semester);
+                writeStudentDataInUser(email, name, college_name, enrollment_number, joining_year, semester);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -127,6 +157,7 @@ export default function Signup() {
                 const user = userCredential.user;
                 console.log(user)
                 writeTeacherData(email, name, college_name);
+                writeTeacherDatainUser(email, name, college_name);
             })
             .catch((error) => {
                 const errorCode = error.code;

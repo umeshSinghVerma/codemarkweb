@@ -5,6 +5,7 @@ import { getDatabase, ref, set, onValue, push } from "firebase/database";
 import './Login.css'
 export default function Login() {
     const auth = getAuth();
+    const db = getDatabase();
     function loginfn() {
         let email = document.getElementById("login-emailid").value;
         let password = document.getElementById("login-passwordid").value;
@@ -48,6 +49,26 @@ export default function Login() {
                 // ...
             });
     }
+    
+    function getdata() {
+        const starCountRef = ref(db, 'users/'+auth.currentUser.uid);
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+        });
+        console.log("we have got data successfully");
+    }
+    // function getdata() {
+    //     // ref = db.reference()
+    //     // query = ref.child('users/').order_by_child('email').equal_to(auth.currentUser.uid)
+    //     snapshot = query.get()
+    //     const starCountRef = ref(db, 'users/');
+    //     onValue(starCountRef, (snapshot) => {
+    //         const data = snapshot.val();
+    //         console.log(data);
+    //     });
+    //     console.log("we have got data successfully");
+    // }
 
     return (
         <>
@@ -72,6 +93,7 @@ export default function Login() {
                         <p className='login-option'>OR</p>
                         <button className='login-google' onClick={loginGooglefn}>Continue with Google</button>
                         <p className='login-signup'>You dont have an account set ? <a href="#">Sign up</a></p>
+                        <button onClick={getdata}>get the data</button>
                     </div>
                 </div>
                 <div className='login-side login-side2'>
